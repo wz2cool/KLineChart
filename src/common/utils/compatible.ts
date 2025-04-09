@@ -12,10 +12,24 @@
  * limitations under the License.
  */
 
+/**
+ * 浏览器兼容性工具函数
+ * 提供了一系列用于处理浏览器API兼容性的工具函数，包括动画帧请求、空闲回调等功能
+ */
+
 import { isFunction } from './typeChecks'
 
+/**
+ * 默认请求ID，用于标识无效或未初始化的请求
+ */
 export const DEFAULT_REQUEST_ID = -1
 
+/**
+ * 请求动画帧
+ * 优先使用requestAnimationFrame，如果不支持则降级使用setTimeout
+ * @param fn 动画回调函数
+ * @returns {number} 请求ID，用于取消动画
+ */
 export function requestAnimationFrame (fn: (params: unknown) => unknown): number {
   if (isFunction(window.requestAnimationFrame)) {
     return window.requestAnimationFrame(fn)
@@ -23,6 +37,11 @@ export function requestAnimationFrame (fn: (params: unknown) => unknown): number
   return window.setTimeout(fn, 20)
 }
 
+/**
+ * 取消动画帧请求
+ * 根据浏览器支持情况选择合适的方法取消动画
+ * @param id 由requestAnimationFrame返回的请求ID
+ */
 export function cancelAnimationFrame (id: number): void {
   if (isFunction(window.cancelAnimationFrame)) {
     window.cancelAnimationFrame(id)
@@ -31,6 +50,13 @@ export function cancelAnimationFrame (id: number): void {
   }
 }
 
+/**
+ * 请求空闲回调
+ * 在浏览器空闲时期调用函数，用于执行非紧急任务
+ * 如果浏览器不支持requestIdleCallback，则使用setTimeout模拟
+ * @param fn 空闲时要执行的回调函数
+ * @returns {number} 请求ID，用于取消回调
+ */
 export function requestIdleCallback (fn: IdleRequestCallback): number {
   if (isFunction(window.requestIdleCallback)) {
     return window.requestIdleCallback(fn)
@@ -46,6 +72,11 @@ export function requestIdleCallback (fn: IdleRequestCallback): number {
   }, 1)
 }
 
+/**
+ * 取消空闲回调请求
+ * 根据浏览器支持情况选择合适的方法取消空闲回调
+ * @param id 由requestIdleCallback返回的请求ID
+ */
 export function cancelIdleCallback (id: number): void {
   if (isFunction(window.cancelIdleCallback)) {
     window.cancelIdleCallback(id)

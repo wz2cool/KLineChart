@@ -1,19 +1,24 @@
 /**
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
-
- * http://www.apache.org/licenses/LICENSE-2.0
-
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * @file 日志工具函数
+ * @description 提供了一系列日志记录工具函数，用于在开发环境下输出格式化的警告和错误信息
+ * @license Licensed under the Apache License, Version 2.0
  */
 
+/**
+ * 开发环境标识
+ * 仅在开发环境下（NODE_ENV === 'development'）输出日志信息
+ */
 const DEV = process.env.NODE_ENV === 'development'
 
+/**
+ * 基础日志输出函数
+ * @param {string} templateText - 日志模板文本，包含样式占位符
+ * @param {string} tagStyle - 标签样式，用于设置日志标签的CSS样式
+ * @param {string} messageStyle - 消息样式，用于设置日志消息的CSS样式
+ * @param {string} api - API名称，用于标识调用的API
+ * @param {string} invalidParam - 无效参数名称，用于标识错误的参数
+ * @param {string} append - 附加信息
+ */
 function log (templateText: string, tagStyle: string, messageStyle: string, api: string, invalidParam: string, append: string): void {
   if (DEV) {
     const apiStr = api !== '' ? `Call api \`${api}\`${invalidParam !== '' || append !== '' ? ', ' : '.'}` : ''
@@ -23,6 +28,12 @@ function log (templateText: string, tagStyle: string, messageStyle: string, api:
   }
 }
 
+/**
+ * 输出警告日志
+ * @param {string} api - API名称，标识触发警告的API
+ * @param {string} invalidParam - 无效参数名称，标识导致警告的参数
+ * @param {string} [append] - 可选的附加警告信息
+ */
 export function logWarn (api: string, invalidParam: string, append?: string): void {
   log(
     '%c😑 klinecharts warning%c %s%s%s',
@@ -32,6 +43,12 @@ export function logWarn (api: string, invalidParam: string, append?: string): vo
   )
 }
 
+/**
+ * 输出错误日志
+ * @param {string} api - API名称，标识触发错误的API
+ * @param {string} invalidParam - 无效参数名称，标识导致错误的参数
+ * @param {string} [append] - 可选的附加错误信息
+ */
 export function logError (api: string, invalidParam: string, append?: string): void {
   log(
     '%c😟 klinecharts error%c %s%s%s',
@@ -41,6 +58,10 @@ export function logError (api: string, invalidParam: string, append?: string): v
   )
 }
 
+/**
+ * 输出欢迎标签
+ * 在控制台显示带有版本信息的欢迎消息
+ */
 export function logTag (): void {
   log(
     '%c❤️ Welcome to klinecharts. Version is __VERSION__',

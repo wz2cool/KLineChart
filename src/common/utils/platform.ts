@@ -12,14 +12,39 @@
  * limitations under the License.
  */
 
+/**
+ * 平台检测工具函数
+ * 提供了一系列用于检测运行环境和浏览器类型的工具函数
+ */
+
+/**
+ * 检测当前浏览器是否为Firefox
+ * @description 通过检查浏览器的userAgent来判断是否为Firefox浏览器
+ * @returns {boolean} 如果是Firefox浏览器返回true，否则返回false
+ * @example
+ * if (isFF()) {
+ *   // Firefox浏览器特定的处理逻辑
+ * }
+ */
 export function isFF (): boolean {
+  // 检查window对象是否存在，以兼容非浏览器环境
   if (typeof window === 'undefined') {
     return false
   }
   return window.navigator.userAgent.toLowerCase().includes('firefox')
 }
 
+/**
+ * 检测当前设备是否为iOS设备
+ * @description 通过检查浏览器的userAgent来判断是否为iOS设备（iPhone、iPad或iPod）
+ * @returns {boolean} 如果是iOS设备返回true，否则返回false
+ * @example
+ * if (isIOS()) {
+ *   // iOS设备特定的处理逻辑
+ * }
+ */
 export function isIOS (): boolean {
+  // 检查window对象是否存在，以兼容非浏览器环境
   if (typeof window === 'undefined') {
     return false
   }

@@ -12,9 +12,27 @@
  * limitations under the License.
  */
 
+/**
+ * K线图中柱子和间隙的空间尺寸配置
+ */
 export default interface BarSpace {
+  /**
+   * 柱子的宽度
+   */
   bar: number
+
+  /**
+   * 柱子宽度的一半
+   */
   halfBar: number
+
+  /**
+   * 柱子之间的间隙宽度
+   */
   gapBar: number
+
+  /**
+   * 柱子之间间隙宽度的一半
+   */
   halfGapBar: number
 }

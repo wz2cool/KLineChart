@@ -14,15 +14,30 @@
 
 import { isValid, merge } from './utils/typeChecks'
 
+/**
+ * 边界接口，定义了一个矩形区域的尺寸和位置
+ * @interface
+ */
 export default interface Bounding {
+  /** 宽度 */
   width: number
+  /** 高度 */
   height: number
+  /** 左边距 */
   left: number
+  /** 右边距 */
   right: number
+  /** 上边距 */
   top: number
+  /** 下边距 */
   bottom: number
 }
 
+/**
+ * 创建默认的边界对象
+ * @param {Partial<Bounding>} [bounding] - 可选的边界参数，用于覆盖默认值
+ * @returns {Bounding} 返回一个完整的边界对象
+ */
 export function createDefaultBounding (bounding?: Partial<Bounding>): Bounding {
   const defaultBounding: Bounding = {
     width: 0,
